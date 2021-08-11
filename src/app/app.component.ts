@@ -19,6 +19,13 @@ export class AppComponent implements OnInit  {
       () =>console.log('complete')
     );
 
+
+    of('sanju1','sanju2','sanju3').subscribe(
+    sanju =>console.log(`Hi! This is .. ${sanju}`),
+      err =>console.error(`sorry ,error is ${err}`),
+      () =>console.log('Good Byee')
+    );
+
     
   }
 }
