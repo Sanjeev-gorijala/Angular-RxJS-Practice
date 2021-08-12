@@ -1,5 +1,6 @@
 import { Component, VERSION ,OnInit} from '@angular/core';
 import {of,from }from 'rxjs';
+import {map,tap,take} from 'rxjs/operators'
 
 @Component({
   selector: 'my-app',
@@ -13,7 +14,20 @@ export class AppComponent implements OnInit  {
 
     of(3,4,5,6).subscribe(console.log);
 
-    from([10,7,8,9]).subscribe(
+    from([10,7,8,5])
+    .pipe(
+      tap(item=>console.log(`item before map is ${item}`)),
+      map(item=>item*2),
+      map(item=>item-10),
+      map(item=>{
+        if (item===0){
+          throw new Error('Zero detected');
+        }
+        return item;
+      }),
+      take(3)
+    )
+    .subscribe(
       item =>console.log(`my item .. ${item}`),
       err =>console.error(`error is ${err}`),
       () =>console.log('complete')
